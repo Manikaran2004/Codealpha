@@ -1,0 +1,29 @@
+import random
+
+class Chatbot:
+    def __init__(self, name):
+        self.name = name
+        self.greetings = ["Hello!", "Hi!", "Hey!"]
+        self.farewells = ["Goodbye!", "See you later!", "Talk to you soon!"]
+
+    def greet(self):
+        return random.choice(self.greetings)
+
+    def farewell(self):
+        return random.choice(self.farewells)
+
+    def respond(self, message):
+        if message.startswith("hello"):
+            return self.greet()
+        elif message.startswith("goodbye"):
+            return self.farewell()
+        else:
+            return "I don't understand."
+bot = Chatbot("BOT")
+while True:
+    message = input("You: ")
+    response = bot.respond(message)
+    print("BOT:", response)
+
+    if response == "Goodbye!" or response == "See you later!" or response == "Talk to you soon!":
+        break
