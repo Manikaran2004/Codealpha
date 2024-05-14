@@ -1,0 +1,33 @@
+import yfinance as yf
+
+class Stock:
+    def __init__(self, symbol, quantity):
+        self.symbol = symbol
+        self.quantity = quantity
+        self.data = yf.Ticker(symbol)
+    
+    def get_current_price(self):
+        return self.data.history(period="1d").iloc[-1]['Close']
+    
+    def get_value(self):
+        return self.quantity * self.get_current_price()
+
+class Portfolio:
+    def __init__(self):
+        self.stocks = []
+    
+    def add_stock(self, stock):
+        self.stocks.append(stock)
+    
+    def get_portfolio_value(self):
+        total_value = 0
+        for stock in self.stocks:
+            total_value += stock.get_value()
+        return total_value
+
+if __name__ == "__main__":
+    portfolio = Portfolio()
+    portfolio.add_stock(Stock("APPLE", 10))  
+    portfolio.add_stock(Stock("GOOGLE", 5))   
+    
+    print("Portfolio Value:", portfolio.get_portfolio_value())
